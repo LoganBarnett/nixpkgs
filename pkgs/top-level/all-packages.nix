@@ -2867,6 +2867,14 @@ with pkgs;
 
   collectd-data = callPackage ../tools/system/collectd/data.nix { };
 
+  comfyui-cpu = callPackage ../by-name/co/comfyui/package.nix { gpuBackend = "none"; };
+
+  comfyui-cuda = callPackage ../by-name/co/comfyui/package.nix { gpuBackend = "cuda"; };
+
+  comfyui-rocm = callPackage ../by-name/co/comfyui/package.nix { gpuBackend = "rocm"; };
+
+  comfyui-custom-nodes = recurseIntoAttrs (callPackage ../by-name/co/comfyui/custom-nodes.nix { });
+
   unify = with python3Packages; toPythonApplication unify;
 
   inherit (nodePackages) uppy-companion;
