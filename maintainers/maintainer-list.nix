@@ -7255,6 +7255,12 @@
     name = "A Frederick Christensen";
     keys = [ { fingerprint = "5A49 F4F9 3EDC 21E9 B7CC  4E94 9EEF 4142 5355 8AC4"; } ];
   };
+  fazo96 = {
+    email = "enrico.fasoli1996@gmail.com";
+    github = "fazo96";
+    githubId = 2546805;
+    name = "Enrico Fasoli";
+  };
   fbeffa = {
     email = "beffa@fbengineering.ch";
     github = "fedeinthemix";
