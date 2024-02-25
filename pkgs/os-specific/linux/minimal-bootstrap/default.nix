@@ -102,6 +102,7 @@ lib.makeScope
     };
 
     gnugrep = callPackage ./gnugrep {
+      inherit gnumake;
       bash = bash_2_05;
       tinycc = tinycc-mes;
     };
