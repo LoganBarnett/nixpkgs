@@ -4,7 +4,7 @@
 , hostPlatform
 , fetchurl
 , checkMeta
-}: {}
+}: builtins.trace "stubbed minimal-bootstrap" {}
 
 # lib.makeScope
 #   # Prevent using top-level attrs to protect against introducing dependency on
