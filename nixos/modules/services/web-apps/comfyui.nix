@@ -25,6 +25,22 @@ in
         description = mdDoc "path to the folders which stores models, custom nodes, input and output files";
       };
 
+      cudaSupport = mkOption {
+        type = types.boolean;
+        default = false;
+        description = mdDoc "Whether or not to enable CUDA for NVidia GPU acceleration.";
+        defaultText = literalExpression "false";
+        example = literalExpression "true";
+      };
+
+      rocmSupport = mkOption {
+        type = types.boolean;
+        default = false;
+        description = mdDoc "Whether or not to enable ROCM for ATi GPU acceleration.";
+        defaultText = literalExpression "false";
+        example = literalExpression "true";
+      };
+
       package = mkOption {
         type = types.package;
         default = (
