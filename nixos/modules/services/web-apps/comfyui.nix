@@ -26,7 +26,7 @@ in
       };
 
       cudaSupport = mkOption {
-        type = types.boolean;
+        type = types.bool;
         default = false;
         description = mdDoc "Whether or not to enable CUDA for NVidia GPU acceleration.";
         defaultText = literalExpression "false";
@@ -34,7 +34,7 @@ in
       };
 
       rocmSupport = mkOption {
-        type = types.boolean;
+        type = types.bool;
         default = false;
         description = mdDoc "Whether or not to enable ROCM for ATi GPU acceleration.";
         defaultText = literalExpression "false";
