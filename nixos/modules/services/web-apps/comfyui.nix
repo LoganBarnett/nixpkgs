@@ -136,9 +136,18 @@ in
         mkdir -p $DATA/models
       '';
 
-      serviceConfig = {
+      serviceConfig = let
+        # This should be hoisted higher and applied elsewhere.
+        name = "comfyui";
+      in {
         User = cfg.user;
         Group = cfg.group;
+        # These directories must be relative to /var/lib.  Absolute paths are
+        # greeted with:
+        #  <path-to-unit>: StateDirectory= path is absolute, ignoring: <abs-path>
+        RuntimeDirectory = [ name ];
+        StateDirectory = [ name ];
+        WorkingDirectory = "/run/${name}";
         ExecStart = let
           args = cli.toGNUCommandLine {} {
             cpu = cfg.useCPU;
@@ -147,7 +156,9 @@ in
         in ''
           ${mkComfyUIPackage cfg}/bin/comfyui ${toString args} ${cfg.extraArgs}
         '';
-        StateDirectory = cfg.dataPath;
+        # TODO: Figure out what to do with dataPath, since it isn't used here
+        # anymore.
+        # StateDirectory = cfg.dataPath;
         Restart = "always"; # comfyui is prone to crashing on long slow workloads.
       };
     };
