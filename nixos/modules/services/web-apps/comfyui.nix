@@ -410,7 +410,7 @@ in
                             base-path
                             (model-to-fetched name model)
                         ))
-                        models-by-name
+                        fetched-by-name
                       );
                     });
                   })
