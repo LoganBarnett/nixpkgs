@@ -338,6 +338,10 @@ in
             phases = [ "installPhase" ];
           });
 
+        model-to-fetched = (name: model:
+          fetchModel ({ inherit name; } // model)
+        );
+
         # TODO: Make sure this comment still holds true.
         # Take all of the model files for the various model types defined in the
         # config of `models`, and translate it into a series of symlink shell
@@ -402,8 +406,12 @@ in
                     drv = (join-single-assets-symlinks {
                       name = "comfyui-models-${type}";
                       paths = (mapAttrsToList
-                        (fetched-to-symlink base-path)
-                        fetched-by-name
+                        (name: model: (
+                          fetched-to-symlink
+                            base-path
+                            (model-to-fetched name model)
+                        ))
+                        models-by-name
                       );
                     });
                   })
