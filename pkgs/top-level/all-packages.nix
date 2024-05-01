@@ -6874,11 +6874,11 @@ with pkgs;
 
   colormake = callPackage ../development/tools/build-managers/colormake { };
 
-  comfyui-cpu = callPackage ../by-name/co/comfyui/comfyui.nix { gpuBackend = "none"; };
+  comfyui-cpu = callPackage ../by-name/co/comfyui/package.nix { gpuBackend = "none"; };
 
-  comfyui-cuda = callPackage ../by-name/co/comfyui/comfyui.nix { gpuBackend = "cuda"; };
+  comfyui-cuda = callPackage ../by-name/co/comfyui/package.nix { gpuBackend = "cuda"; };
 
-  comfyui-rocm = callPackage ../by-name/co/comfyui/comfyui.nix { gpuBackend = "rocm"; };
+  comfyui-rocm = callPackage ../by-name/co/comfyui/package.nix { gpuBackend = "rocm"; };
 
   comfyui-custom-nodes = recurseIntoAttrs (callPackage ../by-name/co/comfyui/custom-nodes.nix { });
 
