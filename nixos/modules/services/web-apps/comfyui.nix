@@ -284,7 +284,6 @@ in
         inherit (lib.strings) concatStrings intersperse;
         inherit (lib.lists) flatten;
         inherit (lib.attrsets) attrValues mapAttrsToList;
-        # And here is ++leftPad++ sorry `join`.
         join = (sep: (xs: concatStrings (intersperse sep xs)));
         join-lines = join "\n";
         # We don't have a type system and this is pretty deep in the call stack,
