@@ -6,7 +6,7 @@ let
   cfg = config.services.comfyui;
   defaultUser = "comfyui";
   defaultGroup = defaultUser;
-  fetchModel = pkgs.callPackage ./fetch-model.nix;
+  fetchModel = pkgs.callPackage ../../../pkgs/by-name/co/comfyui/fetch-model.nix;
   service-name = "comfyui";
   mkComfyUIPackage = cfg: cfg.package.override {
     modelsPath = "${cfg.dataPath}/models";
