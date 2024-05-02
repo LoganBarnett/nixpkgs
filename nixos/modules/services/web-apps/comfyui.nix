@@ -6,6 +6,7 @@ let
   cfg = config.services.comfyui;
   defaultUser = "comfyui";
   defaultGroup = defaultUser;
+  fetchModel = pkgs.callPackage ./fetch-model.nix;
   service-name = "comfyui";
   mkComfyUIPackage = cfg: cfg.package.override {
     modelsPath = "${cfg.dataPath}/models";
@@ -386,7 +387,7 @@ in
                 '')
               (flatten
                 (mapAttrsToList
-                  (type: fetched-by-name: {
+                  (type: models-by-name: {
                     model-type = type;
                     # I cannot get linkFarm and linkFarmFromDrvs to work here. I
                     # get the error "error: value is a string with context while
@@ -400,7 +401,7 @@ in
                     # Changes are suspected to be related to work with getting
                     # the secrets to apply to fetchurl.
                     # drv = pkgs.linkFarm "comfyui-models-${type}" (
-                    #   attrValues fetched-by-name
+                    #   attrValues models-by-name
                     # );
                     drv = (join-single-assets-symlinks {
                       name = "comfyui-models-${type}";
@@ -408,9 +409,10 @@ in
                         (name: model: (
                           fetched-to-symlink
                             base-path
+                            name
                             (model-to-fetched name model)
                         ))
-                        fetched-by-name
+                        models-by-name
                       );
                     });
                   })
