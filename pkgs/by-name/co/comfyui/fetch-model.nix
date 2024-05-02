@@ -2,16 +2,19 @@
 # ComfyUI.
 { lib, pkgs }:
 { url
-, format ? null
+, format
 , bearer ? null
 , bearerFile ? null
 ,  ...
 }@args: let
-  name = lib.replaceStrings
+  name = (lib.replaceStrings
     ["?" "&" ":" "/"]
     ["__questionmark__" "__ampersand__" "__colon__" "__slash__"]
     url
-  ;
+    # Strictly include the format because some models have multiple components
+    # (such as a pth and yaml file), and the models will often have the same
+    # name, sans extension.
+  ) + "." + format;
 in {
   inherit name format;
   # I think builtins.fetchurl _can_ show progress but needs --verbose to do so.
