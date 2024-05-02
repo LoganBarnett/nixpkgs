@@ -14,7 +14,7 @@
     # Strictly include the format because some models have multiple components
     # (such as a pth and yaml file), and the models will often have the same
     # name, sans extension.
-  ) + "." + format;
+  ) + "_" + format;
 in {
   inherit name format;
   # I think builtins.fetchurl _can_ show progress but needs --verbose to do so.
