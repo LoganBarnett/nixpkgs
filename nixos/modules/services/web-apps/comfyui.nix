@@ -210,16 +210,34 @@ in
       models = mkOption (let
         fetcher-type = (types.submodule {
           options = {
-            name = mkOption {
-              type = types.str;
-            };
+            # name = mkOption {
+            #   type = types.str;
+            # };
             format = mkOption {
               type = types.str;
               default = "safetensors";
             };
             path = mkOption {
-              # TODO: See if there is a path type we can use.
-              type = types.str;
+              # There is a path type we can use, but how to use a direct path vs
+              # our helper?
+              # type = types.or types.path;
+              type = (types.submodule {
+                # TODO: Add more curl options?
+                options = {
+                  url = mkOption {
+                    type = types.nonEmptyStr;
+                  };
+                  bearer = mkOption {
+                    type = types.nullOr types.str;
+                  };
+                  bearerFile = mkOption {
+                    type = types.nullOr types.path;
+                  };
+                  sha256 = mkOption {
+                    type = types.nullOr types.str;
+                  };
+                };
+              });
             };
           };
         });
