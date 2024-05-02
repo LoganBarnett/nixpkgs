@@ -18,7 +18,8 @@ in {
   # Need to confirm if this is any better than alternatives (like
   # nixpkgs.fetchurl).
   # path = (builtins.fetchurl ({
-  path = (pkgs.fetchurl (args
+  path = (pkgs.fetchurl (
+    (lib.filterAttrs (key: (lib.any (x: x == key) ["bearer" "bearerFile" "format"]) ) args)
     // (lib.optionalAttrs (bearer != null) {
       # The closest thing to documentation for curlOptsList that I've found:
       # https://github.com/NixOS/nixpkgs/issues/41820#issuecomment-396120262
