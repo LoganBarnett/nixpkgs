@@ -208,6 +208,34 @@ in
       # won't find the file (or know how to treat the file), and a rename will
       # have to be done, potentially triggering a very expensive re-download.
       models = mkOption (let
+        model-path-type = (types.submodule {
+          # TODO: Add more curl options?
+          options = {
+            url = mkOption {
+              description = "The URL to this model.";
+              type = types.nonEmptyStr;
+              defaultText = literalExpression ''"https://civitai.com/api/download/models/351306"'';
+            };
+            bearer = mkOption {
+              default = null;
+              description = "The bearer token needed to download this model.";
+              type = types.nullOr types.str;
+              defaultText = literalExpression ''"asdf"'';
+            };
+            bearerFile = mkOption {
+              default = null;
+              description = "The file containing the bearer token needed to download this model.";
+              type = types.nullOr types.path;
+              defaultText = literalExpression ''/path/to/secret'';
+            };
+            sha256 = mkOption {
+              default = null;
+              description = "The SHA256 of this model.";
+              type = types.nullOr types.str;
+              defaultText = literalExpression ''"sha256-RJazbUi/18/k5dvONIXbVnvO+ivvcjjSkNvUVhISUIM="'';
+            };
+          };
+        });
         fetcher-type = (types.submodule {
           options = {
             # name = mkOption {
@@ -229,34 +257,7 @@ in
               # There is a path type we can use, but how to use a direct path vs
               # our helper?
               # type = types.or types.path;
-              type = (types.submodule {
-                # TODO: Add more curl options?
-                options = {
-                  url = mkOption {
-                    description = "The URL to this model.";
-                    type = types.nonEmptyStr;
-                    defaultText = literalExpression ''"https://civitai.com/api/download/models/351306"'';
-                  };
-                  bearer = mkOption {
-                    default = null;
-                    description = "The bearer token needed to download this model.";
-                    type = types.nullOr types.str;
-                    defaultText = literalExpression ''"asdf"'';
-                  };
-                  bearerFile = mkOption {
-                    default = null;
-                    description = "The file containing the bearer token needed to download this model.";
-                    type = types.nullOr types.path;
-                    defaultText = literalExpression ''/path/to/secret'';
-                  };
-                  sha256 = mkOption {
-                    default = null;
-                    description = "The SHA256 of this model.";
-                    type = types.nullOr types.str;
-                    defaultText = literalExpression ''"sha256-RJazbUi/18/k5dvONIXbVnvO+ivvcjjSkNvUVhISUIM="'';
-                  };
-                };
-              });
+              type = model-path-type;
             };
           };
         });
