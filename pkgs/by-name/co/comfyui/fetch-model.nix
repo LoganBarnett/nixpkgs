@@ -22,7 +22,7 @@ in {
   # nixpkgs.fetchurl).
   # path = (builtins.fetchurl ({
   path = (pkgs.fetchurl (
-    (lib.traceVal (lib.filterAttrs
+    (lib.filterAttrs
       # The @args syntax gathers all arguments, not just the extra ones.
       # fetchurl doesn't like extra arguments it doesn't know about, so we need
       # to remove them here.
@@ -32,7 +32,7 @@ in {
         )
       )
       args
-    )) // (lib.optionalAttrs (bearer != null) {
+    ) // (lib.optionalAttrs (bearer != null) {
       # The closest thing to documentation for curlOptsList that I've found:
       # https://github.com/NixOS/nixpkgs/issues/41820#issuecomment-396120262
       curlOptsList = [
