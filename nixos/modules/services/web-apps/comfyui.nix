@@ -218,6 +218,12 @@ in
               default = "safetensors";
             };
             path = mkOption {
+              defaultText = ''
+                path = {
+                  url = "https://civitai.com/api/download/models/351306";
+                  sha256 = "sha256-RJazbUi/18/k5dvONIXbVnvO+ivvcjjSkNvUVhISUIM=";
+                };
+              '';
               # There is a path type we can use, but how to use a direct path vs
               # our helper?
               # type = types.or types.path;
@@ -226,18 +232,22 @@ in
                 options = {
                   url = mkOption {
                     type = types.nonEmptyStr;
+                    defaultText = literalExpression ''"https://civitai.com/api/download/models/351306"'';
                   };
                   bearer = mkOption {
                     default = null;
                     type = types.nullOr types.str;
+                    defaultText = literalExpression ''"asdf"'';
                   };
                   bearerFile = mkOption {
                     default = null;
                     type = types.nullOr types.path;
+                    defaultText = literalExpression ''/path/to/secret'';
                   };
                   sha256 = mkOption {
                     default = null;
                     type = types.nullOr types.str;
+                    defaultText = literalExpression ''"sha256-RJazbUi/18/k5dvONIXbVnvO+ivvcjjSkNvUVhISUIM="'';
                   };
                 };
               });
