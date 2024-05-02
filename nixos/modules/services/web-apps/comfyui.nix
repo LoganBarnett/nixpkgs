@@ -214,10 +214,12 @@ in
             #   type = types.str;
             # };
             format = mkOption {
+              description = "The extension or format of the model.";
               type = types.str;
               default = "safetensors";
             };
             path = mkOption {
+              description = "A path to a model, or arguments to fetch one.";
               defaultText = ''
                 path = {
                   url = "https://civitai.com/api/download/models/351306";
@@ -231,21 +233,25 @@ in
                 # TODO: Add more curl options?
                 options = {
                   url = mkOption {
+                    description = "The URL to this model.";
                     type = types.nonEmptyStr;
                     defaultText = literalExpression ''"https://civitai.com/api/download/models/351306"'';
                   };
                   bearer = mkOption {
                     default = null;
+                    description = "The bearer token needed to download this model.";
                     type = types.nullOr types.str;
                     defaultText = literalExpression ''"asdf"'';
                   };
                   bearerFile = mkOption {
                     default = null;
+                    description = "The file containing the bearer token needed to download this model.";
                     type = types.nullOr types.path;
                     defaultText = literalExpression ''/path/to/secret'';
                   };
                   sha256 = mkOption {
                     default = null;
+                    description = "The SHA256 of this model.";
                     type = types.nullOr types.str;
                     defaultText = literalExpression ''"sha256-RJazbUi/18/k5dvONIXbVnvO+ivvcjjSkNvUVhISUIM="'';
                   };
