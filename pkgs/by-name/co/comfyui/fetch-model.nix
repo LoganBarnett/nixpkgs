@@ -24,7 +24,7 @@ in {
       # fetchurl doesn't like extra arguments it doesn't know about, so we need
       # to remove them here.
       (key: _:
-        (lib.any (x: x != key)
+        (lib.all (x: x != key)
           ["bearer" "bearerFile" "format"]
         )
       )
