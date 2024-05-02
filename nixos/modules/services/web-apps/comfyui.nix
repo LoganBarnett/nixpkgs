@@ -360,7 +360,7 @@ in
           });
 
         model-to-fetched = (name: model:
-          fetchModel ({ inherit name; } // model)
+          fetchModel ({ inherit name; format = model.format; } //  model.path)
         );
 
         # TODO: Make sure this comment still holds true.
