@@ -228,12 +228,15 @@ in
                     type = types.nonEmptyStr;
                   };
                   bearer = mkOption {
+                    default = null;
                     type = types.nullOr types.str;
                   };
                   bearerFile = mkOption {
+                    default = null;
                     type = types.nullOr types.path;
                   };
                   sha256 = mkOption {
+                    default = null;
                     type = types.nullOr types.str;
                   };
                 };
