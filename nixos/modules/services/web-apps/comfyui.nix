@@ -208,7 +208,7 @@ in
       # won't find the file (or know how to treat the file), and a rename will
       # have to be done, potentially triggering a very expensive re-download.
       models = mkOption (let
-        model-path-type = (types.submodule {
+        model-path-type = lib.traceVal (types.submodule {
           # TODO: Add more curl options?
           options = {
             url = mkOption {
@@ -237,7 +237,7 @@ in
           };
         });
         fetcher-type = (types.submodule {
-          options = {
+          options = lib.traceVal {
             # name = mkOption {
             #   type = types.str;
             # };
@@ -264,7 +264,7 @@ in
           default = {};
         };
       in {
-        type = (types.submodule {
+        type = lib.traceVal (types.submodule {
           options = {
             checkpoints    = fetcher-option;
             clip           = fetcher-option;
