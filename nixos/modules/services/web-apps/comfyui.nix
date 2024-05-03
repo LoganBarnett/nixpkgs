@@ -67,21 +67,21 @@ in
         type = types.str;
         default = defaultUser;
         example = "yourUser";
-        description = ''
-          The user to run ComfyUI as.
-          By default, a user named `${defaultUser}` will be created whose home
-          directory will contain input, output, custom nodes and models.
-        '';
+        # description = ''
+        #   The user to run ComfyUI as.
+        #   By default, a user named `${defaultUser}` will be created whose home
+        #   directory will contain input, output, custom nodes and models.
+        # '';
       };
 
       group = mkOption {
         type = types.str;
         default = defaultGroup;
         example = "yourGroup";
-        description = ''
-          The group to run ComfyUI as.
-          By default, a group named `${defaultUser}` will be created.
-        '';
+        # description = ''
+        #   The group to run ComfyUI as.
+        #   By default, a group named `${defaultUser}` will be created.
+        # '';
       };
 
       useCPU = mkOption {
