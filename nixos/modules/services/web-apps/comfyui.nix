@@ -232,12 +232,12 @@ in
               default = null;
               description = "The SHA256 of this model.";
               type = types.nullOr types.str;
-              defaultText = literalExpression ''"sha256-RJazbUi/18/k5dvONIXbVnvO+ivvcjjSkNvUVhISUIM="'';
+              defaultText = lib.traceVal (literalExpression ''"sha256-RJazbUi/18/k5dvONIXbVnvO+ivvcjjSkNvUVhISUIM="'');
             };
           };
         });
         fetcher-type = (types.submodule {
-          options = lib.traceVal {
+          options = {
             # name = mkOption {
             #   type = types.str;
             # };
@@ -248,12 +248,12 @@ in
             };
             path = mkOption {
               description = "A path to a model, or arguments to fetch one.";
-              defaultText = literalExpression ''
+              defaultText = lib.traceVal (literalExpression ''
                 {
                   url = "https://civitai.com/api/download/models/351306";
                   sha256 = "sha256-RJazbUi/18/k5dvONIXbVnvO+ivvcjjSkNvUVhISUIM=";
                 };
-              '';
+              '');
               type = types.either types.path model-path-type;
               # type = model-path-type;
             };
