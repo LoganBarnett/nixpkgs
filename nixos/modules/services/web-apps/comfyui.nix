@@ -246,20 +246,17 @@ in
               type = types.str;
               default = "safetensors";
             };
-            path = model-path-type;
-            # path = mkOption {
-            #   description = "A path to a model, or arguments to fetch one.";
-            #   defaultText = literalExpression ''
-            #     {
-            #       url = "https://civitai.com/api/download/models/351306";
-            #       sha256 = "sha256-RJazbUi/18/k5dvONIXbVnvO+ivvcjjSkNvUVhISUIM=";
-            #     };
-            #   '';
-            #   # There is a path type we can use, but how to use a direct path vs
-            #   # our helper?
-            #   # type = types.or types.path;
-            #   type = model-path-type;
-            # };
+            path = mkOption {
+              description = "A path to a model, or arguments to fetch one.";
+              defaultText = literalExpression ''
+                {
+                  url = "https://civitai.com/api/download/models/351306";
+                  sha256 = "sha256-RJazbUi/18/k5dvONIXbVnvO+ivvcjjSkNvUVhISUIM=";
+                };
+              '';
+              type = types.either types.path model-path-type;
+              # type = model-path-type;
+            };
           };
         });
         fetcher-option = mkOption {
