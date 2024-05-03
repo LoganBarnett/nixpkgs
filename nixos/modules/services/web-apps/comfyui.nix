@@ -37,7 +37,7 @@ in
         type = types.bool;
         default = false;
         description = "Whether or not to enable CUDA for NVidia GPU acceleration.";
-        # defaultText = literalExpression "false";
+        defaultText = literalExpression "false";
         example = literalExpression "true";
       };
 
@@ -45,7 +45,7 @@ in
         type = types.bool;
         default = false;
         description = "Whether or not to enable ROCM for ATi GPU acceleration.";
-        # defaultText = literalExpression "false";
+        defaultText = literalExpression "false";
         example = literalExpression "true";
       };
 
@@ -58,7 +58,7 @@ in
           then pkgs.comfyui-rocm
           else pkgs.comfyui-cpu
         );
-        # defaultText = literalExpression "pkgs.comfyui";
+        defaultText = literalExpression "pkgs.comfyui";
         example = literalExpression "pkgs.comfyui-rocm";
         description = "ComfyUI base package to use.";
       };
@@ -214,25 +214,25 @@ in
             url = mkOption {
               description = "The URL to this model.";
               type = types.nonEmptyStr;
-              # defaultText = literalExpression ''"https://civitai.com/api/download/models/351306"'';
+              defaultText = literalExpression ''"https://civitai.com/api/download/models/351306"'';
             };
             bearer = mkOption {
               default = null;
               description = "The bearer token needed to download this model.";
               type = types.nullOr types.str;
-              # defaultText = literalExpression ''"asdf"'';
+              defaultText = literalExpression ''"asdf"'';
             };
             bearerFile = mkOption {
               default = null;
               description = "The file containing the bearer token needed to download this model.";
               type = types.nullOr types.path;
-              # defaultText = literalExpression ''/path/to/secret'';
+              defaultText = literalExpression ''/path/to/secret'';
             };
             sha256 = mkOption {
               default = null;
               description = "The SHA256 of this model.";
               type = types.nullOr types.str;
-              # defaultText = literalExpression ''"sha256-RJazbUi/18/k5dvONIXbVnvO+ivvcjjSkNvUVhISUIM="'';
+              defaultText = literalExpression ''"sha256-RJazbUi/18/k5dvONIXbVnvO+ivvcjjSkNvUVhISUIM="'';
             };
           };
         });
@@ -242,18 +242,18 @@ in
             #   type = types.str;
             # };
             format = mkOption {
-              # description = "The extension or format of the model.";
+              description = "The extension or format of the model.";
               type = types.str;
               default = "safetensors";
             };
             path = mkOption {
-              # description = "A path to a model, or arguments to fetch one.";
-              # defaultText = ''
-              #   {
-              #     url = "https://civitai.com/api/download/models/351306";
-              #     sha256 = "sha256-RJazbUi/18/k5dvONIXbVnvO+ivvcjjSkNvUVhISUIM=";
-              #   };
-              # '';
+              description = "A path to a model, or arguments to fetch one.";
+              defaultText = literalExpression ''
+                {
+                  url = "https://civitai.com/api/download/models/351306";
+                  sha256 = "sha256-RJazbUi/18/k5dvONIXbVnvO+ivvcjjSkNvUVhISUIM=";
+                };
+              '';
               # There is a path type we can use, but how to use a direct path vs
               # our helper?
               # type = types.or types.path;
