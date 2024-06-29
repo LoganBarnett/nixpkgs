@@ -17,19 +17,17 @@
 }:
 
 let
+  # Patches don't apply to $src, and as with many scripting languages that don't
+  # have a build output per se, we just want the script source itself placed
+  # into $out.  So just copy everything into $out instead of from $src so we can
+  # make sure we get everything in the future, and we use the patched versions.
+  install = ''
+    shopt -s dotglob
+    shopt -s extglob
+    cp -r ./!($out|$src) $out/
+  '';
   mkComfyUICustomNodes = args: stdenv.mkDerivation ({
-    installPhase = let
-      # Patches don't apply to $src, and as with many scripting languages that
-      # don't have a build output per se, we just want the script source itself
-      # placed into $out.  So just copy everything into $out instead of from
-      # $src so we can make sure we get everything in the future, and we use the
-      # patched versions.
-      install = ''
-        shopt -s dotglob
-        shopt -s extglob
-        cp -r ./!($out|$src) $out/
-      '';
-    in ''
+    installPhase = ''
       runHook preInstall
       mkdir -p $out/
       ${install}
