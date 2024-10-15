@@ -8,7 +8,9 @@
 , symlinkJoin
 , config
 , gpuBackend ? (
-  if config.cudaSupport
+# Some platforms don't have `cudaSupport` defined, hence the need for 'or
+# false'.
+  if config.cudaSupport or false
   then "cuda"
   else if config.rocmSupport
   then "rocm"
