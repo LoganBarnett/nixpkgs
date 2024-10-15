@@ -48,7 +48,9 @@ in
       package = mkOption {
         type = types.package;
         default = (
-          if config.cudaSupport
+          # Some platforms don't have `cudaSupport` defined, hence the need for
+          # 'or false'.
+          if config.cudaSupport or false
           then pkgs.comfyui-cuda
           else if config.rocmSupport
           then pkgs.comfyui-rocm
