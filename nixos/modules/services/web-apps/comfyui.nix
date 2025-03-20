@@ -78,7 +78,7 @@ in
         example = "yourGroup";
         description = ''
           The group to run ComfyUI as.
-          By default, a group named `${defaultUser}` will be created.
+          By default, a group named `${defaultGroup}` will be created.
         '';
       };
 
