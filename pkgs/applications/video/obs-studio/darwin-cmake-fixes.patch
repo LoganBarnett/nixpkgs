@@ -1,8 +1,8 @@
 diff --git a/frontend/CMakeLists.txt b/frontend/CMakeLists.txt
-index e1a0c64..97082b2 100644
+index 6f677d4..f2d451b 100644
 --- a/frontend/CMakeLists.txt
 +++ b/frontend/CMakeLists.txt
-@@ -27,6 +27,8 @@ if(NOT TARGET OBS::bpm)
+@@ -28,6 +28,9 @@ endif()
  
  add_executable(obs-studio)
  add_executable(OBS::studio ALIAS obs-studio)
@@ -12,7 +12,7 @@ index e1a0c64..97082b2 100644
  
  target_link_libraries(
    obs-studio
-@@ -86,7 +88,7 @@ foreach(graphics_library IN ITEMS opengl metal d3d11)
+@@ -91,7 +94,7 @@ foreach(graphics_library IN ITEMS opengl metal d3d11)
      target_compile_definitions(
        obs-studio
        PRIVATE
@@ -22,10 +22,10 @@ index e1a0c64..97082b2 100644
    else()
      target_compile_definitions(obs-studio PRIVATE DL_${graphics_library_U}="")
 diff --git a/libobs-metal/CMakeLists.txt b/libobs-metal/CMakeLists.txt
-index c844044..404f731 100644
+index e9afd5f..db99ef7 100644
 --- a/libobs-metal/CMakeLists.txt
 +++ b/libobs-metal/CMakeLists.txt
-@@ -41,6 +41,19 @@ target_sources(
+@@ -45,6 +45,21 @@ target_sources(
  
  target_link_libraries(libobs-metal PRIVATE OBS::libobs)
  
@@ -48,7 +48,7 @@ index c844044..404f731 100644
  
  set_property(SOURCE OBSMetalRenderer.swift APPEND PROPERTY COMPILE_FLAGS -emit-objc-header)
 diff --git a/plugins/mac-avcapture/CMakeLists.txt b/plugins/mac-avcapture/CMakeLists.txt
-index 87e30fa..0ea7784 100644
+index 2c6fa10..ba3c3d4 100644
 --- a/plugins/mac-avcapture/CMakeLists.txt
 +++ b/plugins/mac-avcapture/CMakeLists.txt
 @@ -5,6 +5,7 @@ add_library(OBS::avcapture-legacy ALIAS mac-avcapture-legacy)
@@ -59,7 +59,7 @@ index 87e30fa..0ea7784 100644
  
  target_link_libraries(
    mac-avcapture-legacy
-@@ -40,6 +41,7 @@ target_sources(
+@@ -46,6 +47,7 @@ target_sources(
  )
  
  target_link_libraries(mac-avcapture PRIVATE OBS::libobs)
@@ -68,7 +68,7 @@ index 87e30fa..0ea7784 100644
  set_target_properties_obs(
    mac-avcapture
 diff --git a/plugins/obs-ffmpeg/ffmpeg-mux/CMakeLists.txt b/plugins/obs-ffmpeg/ffmpeg-mux/CMakeLists.txt
-index 9ab14d5..f118e27 100644
+index c1f9529..92355e3 100644
 --- a/plugins/obs-ffmpeg/ffmpeg-mux/CMakeLists.txt
 +++ b/plugins/obs-ffmpeg/ffmpeg-mux/CMakeLists.txt
 @@ -6,6 +6,9 @@ find_package(FFmpeg REQUIRED COMPONENTS avcodec avutil avformat)
@@ -80,3 +80,4 @@ index 9ab14d5..f118e27 100644
 +endif()
  
  target_sources(obs-ffmpeg-mux PRIVATE ffmpeg-mux.c ffmpeg-mux.h)
+ 
