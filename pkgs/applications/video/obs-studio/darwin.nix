@@ -114,6 +114,15 @@ in
 
   buildPhase = ''
     runHook preBuild
+
+    # Compiling the Swift modules (libobs-metal) has clang write implicit
+    # module caches.  Its default cache location is the per-user cache
+    # directory, which the sandbox denies; the fallback is $HOME/.cache, and
+    # Nix points HOME at the intentionally nonexistent /homeless-shelter.
+    # Give it the build scratch directory instead so the sandboxed build
+    # works.  Nothing else in the build reads HOME.
+    export HOME="$TMPDIR"
+
     cmake --build . --parallel
     runHook postBuild
   '';
