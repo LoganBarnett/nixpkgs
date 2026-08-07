@@ -1,6 +1,7 @@
 {
   lib,
   stdenv,
+  rcodesign,
   perl,
   swift,
   swiftpm,
@@ -44,6 +45,7 @@ in
 
   extraNativeBuildInputs = [
     perl
+    rcodesign
     swift
     swiftpm
   ];
@@ -233,8 +235,37 @@ in
     runHook postInstall
   '';
 
+  # Upstream only wires codesign into the Xcode generator, and this build uses
+  # Ninja, so nothing is ever signed: the binaries carry only the ad-hoc
+  # signature the linker emits, with no identifier and no entitlements.  macOS
+  # then has no code identity to attach TCC grants to and falls back to keying
+  # them by the executable's absolute path, which lands in the Nix store and
+  # changes on every rebuild.
+  #
+  # Sign the bundle, not the binaries inside it.  Signing a Mach-O file leaves
+  # "Info.plist=not bound" and "Sealed Resources=none", so macOS cannot trust
+  # the bundle's CFBundleIdentifier - which is the identity this is trying to
+  # establish.  Only signing the .app directory seals the plist and generates
+  # CodeResources.  See NixOS/nixpkgs#517790, where the same fix was attempted
+  # against binary paths and consequently did not take.
+  #
+  # rcodesign rather than sigtool or /usr/bin/codesign: sigtool has no concept
+  # of a bundle, and the host codesign is an impure path gated behind
+  # allowed-impure-host-deps, so it fails outright under a sandbox.  rcodesign
+  # is a nixpkgs package and signs bundles recursively, which matters because
+  # the nested plugins, embedded frameworks, browser helper apps and the binary
+  # behind the wrapQtApp wrapper are all only linker-signed.  The result passes
+  # Apple's own `codesign --verify --deep`.
+  #
+  # Must run after wrapQtApp: the wrapper binary it installs at the bundle's
+  # advertised executable path needs to be covered by the signature too.
   postFixup = ''
     wrapQtApp "$out/Applications/OBS.app/Contents/MacOS/OBS"
+
+    rcodesign sign \
+      --binary-identifier com.obsproject.obs-studio \
+      --entitlements-xml-file ../frontend/cmake/macos/entitlements.plist \
+      "$out/Applications/OBS.app"
   '';
 
   meta = {
